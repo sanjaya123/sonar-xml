@@ -1,0 +1,15 @@
+{
+  "title": "Synaps issue",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "Synaps",
+  "sqKey": "NewlineCheck"
+}
