@@ -38,7 +38,8 @@ public class CheckList {
       LineLengthCheck.class,
       TodoCommentCheck.class,
       FixmeCommentCheck.class,
-      CommentedOutCodeCheck.class
+      CommentedOutCodeCheck.class,
+      SynapsCheck.class
     );
   }
 
