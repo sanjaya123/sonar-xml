@@ -50,17 +50,81 @@ public class SynapsCheck extends SonarXmlCheck {
     this.maximumLineLength = maximumLineLength;
   }
 
-  @Override
+@Override
   public void scanFile(XmlFile file) {
     int lineNumber = 1;
     for (String line : Utils.splitLines(file.getContents())) {
       String trimLine = trimEndOfLine(line);
       int length = trimLine.length();
-      if (trimLine.contains("script")) {
+      if (trimLine.contains("<script ")) {
         XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
         reportIssue(textRange,
-          String.format("Synaps Issue", length, maximumLineLength),
+          String.format("Script mediator exists", length, maximumLineLength),
           Collections.emptyList());
+      }else if (trimLine.contains("<bean ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("Bean mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }
+      else if (trimLine.contains("<pojoCommand ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("POJO mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<router ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("Router mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<in ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("In mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<out ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("Out mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<conditionalRouter ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("ConditionalRouter mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<enqueue ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("Enqueue mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<event ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("Event mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<log level=\"full\"")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("Log full mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<foreach ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("Foreach mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }
+      else if (trimLine.contains("<loopback ")){
+        XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+        reportIssue(textRange,
+                String.format("Loopback mediator exists", length, maximumLineLength),
+                Collections.emptyList());
+      }else if (trimLine.contains("<endpoint")){
+        if (!trimLine.contains("key=")) {
+          XmlTextRange textRange = new XmlTextRange(lineNumber, 0, lineNumber, trimLine.length());
+          reportIssue(textRange,
+                  String.format("Endpoint is not defined with key", length, maximumLineLength),
+                  Collections.emptyList());
+        }
       }
       lineNumber++;
     }
